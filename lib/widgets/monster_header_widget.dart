@@ -32,8 +32,9 @@ class MonsterHeaderCard extends StatelessWidget {
                   width: 139,
                   child: GestureDetector(
                     onTap: () {
-                      monsterService.player = monster;
-                      monsterService.generateCPUMonster();
+                      monsterService.selectMonster(monster);
+                      //monsterService.player = monster;
+                      //monsterService.generateCPUMonster();
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(7),

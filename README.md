@@ -1,5 +1,3 @@
-![Flutter](https://user-images.githubusercontent.com/80694339/189190162-b563b2ee-a90d-46a5-b642-8a2d34143fe8.png)
-
 # Flutter Coding Challenge - Battle of Monsters
 
 ## Introduction

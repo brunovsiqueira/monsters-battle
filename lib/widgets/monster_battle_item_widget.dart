@@ -30,7 +30,12 @@ class _MonsterItemState extends State<MonsterItem> {
   Widget _currentMonsterWidget(Monster? monster) {
     //TODO: Create monster widgets
     return Center(
-      child: Text(monster!.name),
+      child: Text(
+        monster!.name,
+        style: const TextStyle(
+          fontSize: 30,
+        ),
+      ),
     );
   }
 

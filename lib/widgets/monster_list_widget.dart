@@ -46,7 +46,7 @@ class _MonsterListState extends State<MonsterList> {
                   MonsterHeaderCard(monster: _monsters![index]),
             )
           : const Center(
-              child: Text("No Mosters"),
+              child: Text("No Monsters"),
             ),
     );
   }

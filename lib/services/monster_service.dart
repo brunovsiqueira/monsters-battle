@@ -41,6 +41,19 @@ class MonsterService extends ChangeNotifier {
     return null;
   }
 
+  void selectMonster(Monster monster) {
+    if (_player != null && _player?.id == monster.id) {
+      //If the same monster is selected so
+      //the monster is deselected
+      _player = null;
+      _computer = null;
+    } else {
+      _player = monster;
+      generateCPUMonster();
+    }
+    notifyListeners();
+  }
+
   set player(Monster? currentPlayer) {
     _player = currentPlayer;
     notifyListeners();

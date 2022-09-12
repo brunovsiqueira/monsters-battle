@@ -1,5 +1,6 @@
 import 'package:assessment_cc_flutter_sr_01/models/battle_response.dart';
 import 'package:assessment_cc_flutter_sr_01/widgets/monster_list_widget.dart';
+import 'package:assessment_cc_flutter_sr_01/widgets/start_battle_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,11 +9,6 @@ import '../widgets/monster_battle_arena_widget.dart';
 
 class MonsterHome extends StatelessWidget {
   const MonsterHome({Key? key}) : super(key: key);
-
-  void _startMonsterBattle(
-      BuildContext context, MonsterService monsterService) {
-    //TODO: Implement missing coe
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +20,15 @@ class MonsterHome extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 49, left: 22),
-                child: Text(
-                  "Battle of Monsters",
-                  style: TextStyle(
-                    fontSize: 36,
+              Container(
+                width: size.width,
+                child: const Padding(
+                  padding: EdgeInsets.only(top: 49, left: 22),
+                  child: Text(
+                    "Battle of Monsters",
+                    style: TextStyle(
+                      fontSize: 36,
+                    ),
                   ),
                 ),
               ),
@@ -57,14 +56,7 @@ class MonsterHome extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                width: size.width * 0.90,
-                child: ElevatedButton(
-                    child: const Text("Start Battle"),
-                    onPressed: () async {
-                      _startMonsterBattle(context, monsterService);
-                    }),
-              ),
+              StartBattleButton()
             ],
           ),
         ),
