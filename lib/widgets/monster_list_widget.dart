@@ -36,7 +36,7 @@ class _MonsterListState extends State<MonsterList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 136,
+      height: 139,
       child: _monsters != null
           ? ListView.builder(
               shrinkWrap: true,

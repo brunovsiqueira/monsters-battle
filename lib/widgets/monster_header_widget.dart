@@ -16,46 +16,43 @@ class MonsterHeaderCard extends StatelessWidget {
     return Container(
       width: 150,
       height: size.height,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(7),
-        child: Card(
-          elevation: 8,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 6.0,
-                  right: 6.0,
-                  top: 7.0,
-                ),
-                child: Container(
-                  width: 139,
-                  child: GestureDetector(
-                    onTap: () {
-                      monsterService.selectMonster(monster);
-                      //monsterService.player = monster;
-                      //monsterService.generateCPUMonster();
-                    },
+      child: GestureDetector(
+        onTap: () {
+          monsterService.selectMonster(monster);
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(7),
+          child: Card(
+            elevation: 3,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 7, top: 6, right: 7),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 136,
+                    height: 99,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(7),
                       child: Image(
+                        fit: BoxFit.cover,
                         image: NetworkImage(monster.imageUrl),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 3),
+                    child: Container(
+                      width: size.width,
+                      child: Text(monster.name),
+                    ),
+                  )
+                ],
               ),
-              const SizedBox(
-                height: 2,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 7, bottom: 8, top: 7),
-                child: Container(
-                  width: size.width,
-                  child: Text(monster.name),
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),

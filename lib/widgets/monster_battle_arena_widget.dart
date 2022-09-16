@@ -15,7 +15,7 @@ class MonsterBattleArena extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.45,
+      height: size.height * 0.55,
       width: 373,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,

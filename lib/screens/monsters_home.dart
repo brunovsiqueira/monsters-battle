@@ -19,6 +19,8 @@ class MonsterHome extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: size.width,
@@ -39,6 +41,7 @@ class MonsterHome extends StatelessWidget {
                   child: const Text(
                     "Select your monster",
                     textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 24),
                   ),
                 ),
               ),
@@ -50,17 +53,20 @@ class MonsterHome extends StatelessWidget {
                 child: MonsterList(),
               ),
               const SizedBox(
-                height: 11,
+                height: 23,
               ),
-              const MonsterBattleArena(),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: MonsterBattleArena(),
+              ),
               const SizedBox(
-                height: 10,
-              ),
-              StartBattleButton()
+                height: 21,
+              )
             ],
           ),
         ),
       ),
+      bottomNavigationBar: StartBattleButton(),
     );
   }
 }

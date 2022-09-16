@@ -29,14 +29,19 @@ class _StartBattleButtonState extends State<StartBattleButton> {
     Size size = MediaQuery.of(context).size;
     MonsterService monsterService =
         Provider.of<MonsterService>(context, listen: true);
-    return Container(
-      width: size.width * 0.90,
-      child: ElevatedButton(
-        style: monsterService.player != null && monsterService.computer != null
-            ? _enableButtonStyle
-            : _disabledButtonStyle,
-        onPressed: null, //TODO: Implement call
-        child: const Text("Start Battle"),
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+      child: Container(
+        width: size.width * 0.85,
+        height: 56,
+        child: ElevatedButton(
+          style:
+              monsterService.player != null && monsterService.computer != null
+                  ? _enableButtonStyle
+                  : _disabledButtonStyle,
+          onPressed: null, //TODO: Implement call
+          child: const Text("Start Battle"),
+        ),
       ),
     );
   }
