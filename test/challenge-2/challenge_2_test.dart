@@ -46,8 +46,8 @@ void main() {
     });
 
     test('Test Case 8', () {
-      int value = challenge2.diceFacesCalculator(7, 6, 5);
-      expect(value, equals(7));
+      expect(() => challenge2.diceFacesCalculator(7, 6, 5),
+          throwsA(isA<Exception>()));
     });
 
     test('Test Case 9', () {
