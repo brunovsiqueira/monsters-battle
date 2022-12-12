@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'challente2.dart';
 
 void main() {
-  group('Test Challenge 1', () {
+  group('Test Challenge 2', () {
     late Challenge2 challenge2;
 
     setUp(() {
