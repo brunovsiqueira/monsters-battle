@@ -2,11 +2,11 @@ import 'monster.dart';
 
 class BattleResponse {
   Monster? _winner;
-  bool? _tie;
+  bool _tie = false;
   String? _message;
 
   Monster? get winner => _winner;
-  bool? get tie => _tie;
+  bool get tie => _tie;
   String? get message => _message;
 
   BattleResponse.fromJson(Map<String, dynamic> json) {

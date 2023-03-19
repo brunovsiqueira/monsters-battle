@@ -1,6 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:assessment_cc_flutter_sr_01/models/battle_request.dart';
 import 'package:assessment_cc_flutter_sr_01/models/battle_response.dart';
 import 'package:assessment_cc_flutter_sr_01/models/monster.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +38,16 @@ class MonsterService extends ChangeNotifier {
     }
   }
 
-  Future<BattleResponse?> startBattle() async {
-    //TODO: Implement call
-    return null;
+  Future<BattleResponse> startBattle() async {
+    final response = await http.post(
+        Uri.parse('${dotenv.env["API_URL"]}/battle'),
+        body: BattleRequest(_player!.id, _computer!.id).toJson());
+    if (response.statusCode == 200) {
+      var decodedResponse = jsonDecode(response.body);
+      return BattleResponse.fromJson(decodedResponse);
+    } else {
+      throw Exception('Failed to start battle');
+    }
   }
 
   void selectMonster(Monster monster) {
@@ -49,7 +58,7 @@ class MonsterService extends ChangeNotifier {
       _computer = null;
     } else {
       _player = monster;
-      generateCPUMonster();
+      generateCPUMonster(_player!);
     }
     notifyListeners();
   }
@@ -59,13 +68,20 @@ class MonsterService extends ChangeNotifier {
     notifyListeners();
   }
 
+  set computer(Monster? computerPlayer) {
+    _computer = computerPlayer;
+    notifyListeners();
+  }
+
   Monster? get player => _player;
 
+  Monster? get computer => _computer;
   BattleResponse? get battleResponse => _battleResponse;
 
-  Monster? get computer => _computer;
-
-  void generateCPUMonster() {
-    //TODO: Assign CPU monster
+  void generateCPUMonster(Monster playerMonster) {
+    List<Monster> computerList = List.from(_monsters);
+    computerList.remove(playerMonster);
+    int monsterIndex = Random().nextInt(computerList.length - 1);
+    _computer = computerList[monsterIndex];
   }
 }

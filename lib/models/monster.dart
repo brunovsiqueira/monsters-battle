@@ -15,6 +15,9 @@ class Monster {
   int get hp => _hp;
   int get speed => _speed;
 
+  Monster(this._name, this._imageUrl, this._attack, this._defense, this._hp,
+      this._speed, this._id);
+
   Monster.fromJson(Map<String, dynamic> json)
       : _id = json['id'],
         _name = json['name'],

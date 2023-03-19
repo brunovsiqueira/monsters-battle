@@ -1,0 +1,12 @@
+[
+    {
+        "id": "id",
+        "name": "Monster 1",
+        "attack": 20,
+        "defense": 30,
+        "hp": 100,
+        "speed": 50,
+        "type": "Type",
+        "imageUrl": "url"
+    }
+]

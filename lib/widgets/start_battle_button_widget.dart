@@ -1,3 +1,4 @@
+import 'package:assessment_cc_flutter_sr_01/models/battle_response.dart';
 import 'package:assessment_cc_flutter_sr_01/services/monster_service.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,9 @@ class _StartBattleButtonState extends State<StartBattleButton> {
     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
   );
 
+  String buttonText = "Start Battle";
+  bool isGameFinished = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,7 +35,7 @@ class _StartBattleButtonState extends State<StartBattleButton> {
         Provider.of<MonsterService>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-      child: Container(
+      child: SizedBox(
         width: size.width * 0.85,
         height: 56,
         child: ElevatedButton(
@@ -39,8 +43,38 @@ class _StartBattleButtonState extends State<StartBattleButton> {
               monsterService.player != null && monsterService.computer != null
                   ? _enableButtonStyle
                   : _disabledButtonStyle,
-          onPressed: null, //TODO: Implement call
-          child: const Text("Start Battle"),
+          onPressed: () async {
+            if (isGameFinished) {
+              setState(() {
+                buttonText = "Start battle";
+                monsterService.computer = null;
+                monsterService.player = null;
+                isGameFinished = false;
+              });
+              return;
+            }
+            if (monsterService.player == null) {
+              setState(() {
+                buttonText = "You must select a monster first!";
+              });
+              return;
+            }
+            BattleResponse battleResponse = await monsterService.startBattle();
+            if (battleResponse.tie) {
+              setState(() {
+                buttonText = "Tie! Tap to restart.";
+                isGameFinished = true;
+              });
+
+              return;
+            }
+            setState(() {
+              buttonText =
+                  "${battleResponse.winner?.name} wins. Tap to restart";
+              isGameFinished = true;
+            });
+          },
+          child: Text(buttonText),
         ),
       ),
     );
