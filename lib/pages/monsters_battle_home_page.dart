@@ -1,8 +1,8 @@
-
 import 'package:assessment_cc_flutter_sr_01/widgets/monster_list_widget.dart';
 import 'package:assessment_cc_flutter_sr_01/widgets/start_battle_button_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../styling/spacing.dart';
 import '../widgets/monster_battle_arena_widget.dart';
 
 class MonstersBattleHomePage extends StatelessWidget {
@@ -34,23 +34,17 @@ class MonstersBattleHomePage extends StatelessWidget {
                   style: TextStyle(fontSize: 24),
                 ),
               ),
-              SizedBox(
-                height: 14,
-              ),
+              spacingInlineD,
               Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: MonsterList(),
               ),
-              SizedBox(
-                height: 23,
-              ),
+              spacingInlineL,
               Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: MonsterBattleArenaWidget(),
               ),
-              SizedBox(
-                height: 21,
-              )
+              spacingInlineL,
             ],
           ),
         ),
