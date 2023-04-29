@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 import 'monster_battle_item_widget.dart';
 
-class MonsterBattleArena extends StatelessWidget {
+class MonsterBattleArenaWidget extends StatelessWidget {
   final List<MonsterItem> monsters = const [
     MonsterItem(type: PlayerType.player),
     MonsterItem(type: PlayerType.computer)
   ];
 
-  const MonsterBattleArena({Key? key}) : super(key: key);
+  const MonsterBattleArenaWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: size.height * 0.55,
       width: 373,
       child: ListView.builder(
