@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../services/monster_service.dart';
-import 'screens/monsters_home.dart';
+import 'pages/monsters_battle_home_page.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       home: ChangeNotifierProvider(
         create: (context) => MonsterService(),
-        child: const MonsterHome(),
+        child: const MonstersBattleHomePage(),
       ),
     );
   }
