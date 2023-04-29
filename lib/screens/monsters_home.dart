@@ -57,7 +57,7 @@ class MonsterHome extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: MonsterBattleArena(),
+                child: MonsterBattleArenaWidget(),
               ),
               const SizedBox(
                 height: 21,
