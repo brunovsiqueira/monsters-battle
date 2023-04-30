@@ -1,5 +1,5 @@
-import 'package:assessment_cc_flutter_sr_01/widgets/monster_list_widget.dart';
-import 'package:assessment_cc_flutter_sr_01/widgets/start_battle_button_widget.dart';
+import 'package:monsters_battle/widgets/monster_list_widget.dart';
+import 'package:monsters_battle/widgets/start_battle_button_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../styling/spacing.dart';

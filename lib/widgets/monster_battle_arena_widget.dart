@@ -1,4 +1,4 @@
-import 'package:assessment_cc_flutter_sr_01/utils/player_type_enum.dart';
+import 'package:monsters_battle/utils/player_type_enum.dart';
 import 'package:flutter/material.dart';
 
 import 'monster_battle_item_widget.dart';

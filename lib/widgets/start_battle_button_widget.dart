@@ -1,5 +1,5 @@
-import 'package:assessment_cc_flutter_sr_01/models/battle_response.dart';
-import 'package:assessment_cc_flutter_sr_01/services/monster_service.dart';
+import 'package:monsters_battle/models/battle_response.dart';
+import 'package:monsters_battle/services/monster_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';

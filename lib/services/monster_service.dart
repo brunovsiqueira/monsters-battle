@@ -2,9 +2,9 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:assessment_cc_flutter_sr_01/models/battle_request.dart';
-import 'package:assessment_cc_flutter_sr_01/models/battle_response.dart';
-import 'package:assessment_cc_flutter_sr_01/models/monster.dart';
+import 'package:monsters_battle/models/battle_request.dart';
+import 'package:monsters_battle/models/battle_response.dart';
+import 'package:monsters_battle/models/monster.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
