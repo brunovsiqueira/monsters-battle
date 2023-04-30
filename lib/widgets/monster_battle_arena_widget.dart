@@ -1,4 +1,4 @@
-import 'package:monsters_battle/services/monster_service.dart';
+import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:monsters_battle/utils/player_type_enum.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,8 @@ class MonsterBattleArenaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MonsterService monsterService = context.watch<MonsterService>();
+    MonsterBattleViewModel monsterService =
+        context.watch<MonsterBattleViewModel>();
     Size size = MediaQuery.of(context).size;
     return SizedBox(
         height: size.height * 0.55,

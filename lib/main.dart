@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../services/monster_service.dart';
+import 'view_models/monster_battle_view_model.dart';
 import 'pages/monsters_battle_home_page.dart';
 
 void main() async {
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: ChangeNotifierProvider(
-        create: (context) => MonsterService(),
+        create: (context) => MonsterBattleViewModel(),
         child: const MonstersBattleHomePage(),
       ),
     );

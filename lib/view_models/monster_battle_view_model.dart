@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-class MonsterService extends ChangeNotifier {
+class MonsterBattleViewModel extends ChangeNotifier {
   List<MonsterModel> _monsters = [];
   MonsterModel? _player;
   MonsterModel? _computer;

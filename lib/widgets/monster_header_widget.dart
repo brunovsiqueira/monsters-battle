@@ -1,4 +1,4 @@
-import 'package:monsters_battle/services/monster_service.dart';
+import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,8 @@ class MonsterHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    MonsterService monsterService = Provider.of<MonsterService>(context);
+    MonsterBattleViewModel monsterService =
+        Provider.of<MonsterBattleViewModel>(context);
     return Container(
       width: 150,
       height: size.height,

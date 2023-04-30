@@ -1,5 +1,5 @@
 import 'package:monsters_battle/models/battle_response.dart';
-import 'package:monsters_battle/services/monster_service.dart';
+import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -31,8 +31,8 @@ class _StartBattleButtonState extends State<StartBattleButton> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    MonsterService monsterService =
-        Provider.of<MonsterService>(context, listen: true);
+    MonsterBattleViewModel monsterService =
+        Provider.of<MonsterBattleViewModel>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
       child: SizedBox(

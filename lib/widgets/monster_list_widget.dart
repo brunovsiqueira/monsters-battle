@@ -1,4 +1,4 @@
-import 'package:monsters_battle/services/monster_service.dart';
+import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:monsters_battle/widgets/monster_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class _MonsterListState extends State<MonsterList> {
   List<MonsterModel>? _monsters;
 
   Future<List<MonsterModel>> _getMonsterList(BuildContext context) async {
-    return await Provider.of<MonsterService>(
+    return await Provider.of<MonsterBattleViewModel>(
       context,
       listen: false,
     ).getMonsters();
