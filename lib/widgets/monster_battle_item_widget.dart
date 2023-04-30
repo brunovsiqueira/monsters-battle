@@ -17,7 +17,6 @@ class MonsterItem extends StatefulWidget {
 
 class _MonsterItemState extends State<MonsterItem> {
   Widget _defaultContent(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Center(
       child: Text(
         widget.type.playerName,
@@ -87,7 +86,6 @@ class _MonsterItemState extends State<MonsterItem> {
   }
 
   Widget _buildCurrentWidget(MonsterService monsterService) {
-    Size size = MediaQuery.of(context).size;
     late Widget currentWidget;
     switch (widget.type) {
       case PlayerType.player:
@@ -104,11 +102,7 @@ class _MonsterItemState extends State<MonsterItem> {
         currentWidget = _defaultContent(context);
     }
 
-    return Container(
-      width: size.width,
-      height: size.height,
-      child: Card(elevation: 8, child: currentWidget),
-    );
+    return Card(elevation: 8, child: currentWidget);
   }
 
   @override
@@ -117,7 +111,7 @@ class _MonsterItemState extends State<MonsterItem> {
     MonsterService monsterService =
         Provider.of<MonsterService>(context, listen: true);
 
-    return Container(
+    return SizedBox(
       width: size.width * 0.70,
       child: _buildCurrentWidget(monsterService),
     );
