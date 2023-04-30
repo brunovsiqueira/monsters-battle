@@ -54,9 +54,9 @@ class _StartBattleButtonState extends State<StartBattleButton> {
               return;
             }
             if (monsterService.player == null) {
-              setState(() {
-                buttonText = "You must select a monster first!";
-              });
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("You must select a monster first!")));
+
               return;
             }
             BattleResponse battleResponse = await monsterService.startBattle();
