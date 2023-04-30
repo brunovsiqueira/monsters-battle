@@ -6,16 +6,18 @@ import 'package:provider/provider.dart';
 
 import '../models/monster.dart';
 
-class MonsterItem extends StatefulWidget {
+class MonsterBattleItemWidget extends StatefulWidget {
   final PlayerType type;
 
-  const MonsterItem({Key? key, required this.type}) : super(key: key);
+  const MonsterBattleItemWidget({Key? key, required this.type})
+      : super(key: key);
 
   @override
-  State<MonsterItem> createState() => _MonsterItemState();
+  State<MonsterBattleItemWidget> createState() =>
+      _MonsterBattleItemWidgetState();
 }
 
-class _MonsterItemState extends State<MonsterItem> {
+class _MonsterBattleItemWidgetState extends State<MonsterBattleItemWidget> {
   Widget _defaultContent(BuildContext context) {
     return Center(
       child: Text(

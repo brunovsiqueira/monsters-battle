@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'monster_battle_item_widget.dart';
 
 class MonsterBattleArenaWidget extends StatelessWidget {
-  final List<MonsterItem> monsters = const [
-    MonsterItem(type: PlayerType.player),
-    MonsterItem(type: PlayerType.computer)
+  final List<MonsterBattleItemWidget> monsters = const [
+    MonsterBattleItemWidget(type: PlayerType.player),
+    MonsterBattleItemWidget(type: PlayerType.computer)
   ];
 
   const MonsterBattleArenaWidget({Key? key}) : super(key: key);
