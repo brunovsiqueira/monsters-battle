@@ -10,7 +10,7 @@ class MonsterBattleArenaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MonsterService monsterService = context.read<MonsterService>();
+    MonsterService monsterService = context.watch<MonsterService>();
     Size size = MediaQuery.of(context).size;
     return SizedBox(
         height: size.height * 0.55,

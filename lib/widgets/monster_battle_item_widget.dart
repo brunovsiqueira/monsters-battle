@@ -24,70 +24,78 @@ class _MonsterBattleItemWidgetState extends State<MonsterBattleItemWidget> {
     Size size = MediaQuery.of(context).size;
     MonsterModel? monster = widget.monster;
 
-    if (monster == null) {
-      return const Center(
-        child: Text(
-          "Monster not yet selected",
-          style: TextStyle(
-            fontSize: 30,
-          ),
-        ),
-      );
-    }
     return SizedBox(
       width: size.width * 0.70,
       child: Card(
         elevation: 8,
-        child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                spacingInlineXS,
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(7.0),
-                  child: Image.network(monster.imageUrl),
-                ),
-                spacingInlineS,
-                Text(
-                  monster.name,
-                  style: const TextStyle(fontSize: 22),
-                ),
-                spacingInlineXXS,
-                const Divider(
-                  height: 1,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      MonsterPowerBarChartWidget(
-                        monsterAttributeName: "HP",
-                        monsterAttributeValue: monster.hp,
-                      ),
-                      MonsterPowerBarChartWidget(
-                        monsterAttributeName: "Attack",
-                        monsterAttributeValue: monster.attack,
-                      ),
-                      MonsterPowerBarChartWidget(
-                        monsterAttributeName: "Deffense",
-                        monsterAttributeValue: monster.defense,
-                      ),
-                      MonsterPowerBarChartWidget(
-                        monsterAttributeName: "Speed",
-                        monsterAttributeValue: monster.speed,
-                      ),
-                    ],
+        child: monster == null
+            ? Center(
+                child: Text(
+                  widget.playerType.playerName,
+                  style: const TextStyle(
+                    fontSize: 30,
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
-              ],
-            )),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    spacingInlineXS,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(7.0),
+                      child: Image.network(monster.imageUrl),
+                    ),
+                    spacingInlineS,
+                    Text(
+                      '${monster.name} (${widget.playerType.playerName})',
+                      style: const TextStyle(fontSize: 22),
+                    ),
+                    spacingInlineXXS,
+                    const Divider(
+                      height: 1,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MonsterPowerBarChartWidget(
+                            monsterAttributeName: "HP",
+                            monsterAttributeValue: monster.hp,
+                          ),
+                          MonsterPowerBarChartWidget(
+                            monsterAttributeName: "Attack",
+                            monsterAttributeValue: monster.attack,
+                          ),
+                          MonsterPowerBarChartWidget(
+                            monsterAttributeName: "Deffense",
+                            monsterAttributeValue: monster.defense,
+                          ),
+                          MonsterPowerBarChartWidget(
+                            monsterAttributeName: "Speed",
+                            monsterAttributeValue: monster.speed,
+                          ),
+                        ],
+                      ),
+                    ),
+                    spacingInlineXL
+                  ],
+                )),
       ),
     );
+  }
+}
+
+class MonsterBattleItemHeaderWidget extends StatelessWidget {
+  final PlayerTypeEnum playerType;
+  const MonsterBattleItemHeaderWidget({super.key, required this.playerType});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text(playerType.playerName));
   }
 }
