@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/monster.dart';
 
 class MonsterHeaderCard extends StatelessWidget {
-  final Monster monster;
+  final MonsterModel monster;
 
   const MonsterHeaderCard({Key? key, required this.monster}) : super(key: key);
 

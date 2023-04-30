@@ -10,15 +10,16 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class MonsterService extends ChangeNotifier {
-  List<Monster> _monsters = [];
-  Monster? _player;
-  Monster? _computer;
+  List<MonsterModel> _monsters = [];
+  MonsterModel? _player;
+  MonsterModel? _computer;
 
   BattleResponse? _battleResponse;
 
-  UnmodifiableListView<Monster> get monsters => UnmodifiableListView(_monsters);
+  UnmodifiableListView<MonsterModel> get monsters =>
+      UnmodifiableListView(_monsters);
 
-  Future<List<Monster>> getMonsters() async {
+  Future<List<MonsterModel>> getMonsters() async {
     final response =
         await http.get(Uri.parse('${dotenv.env["API_URL"]}/monsters'));
     if (response.statusCode == 200) {
@@ -29,8 +30,8 @@ class MonsterService extends ChangeNotifier {
       } else {
         it = jsonDecode(response.body);
       }
-      _monsters =
-          List<Monster>.from(it.map((monster) => Monster.fromJson(monster)));
+      _monsters = List<MonsterModel>.from(
+          it.map((monster) => MonsterModel.fromJson(monster)));
       notifyListeners();
       return _monsters;
     } else {
@@ -50,7 +51,7 @@ class MonsterService extends ChangeNotifier {
     }
   }
 
-  void selectMonster(Monster monster) {
+  void selectMonster(MonsterModel monster) {
     if (_player != null && _player?.id == monster.id) {
       //If the same monster is selected so
       //the monster is deselected
@@ -63,23 +64,23 @@ class MonsterService extends ChangeNotifier {
     notifyListeners();
   }
 
-  set player(Monster? currentPlayer) {
+  set player(MonsterModel? currentPlayer) {
     _player = currentPlayer;
     notifyListeners();
   }
 
-  set computer(Monster? computerPlayer) {
+  set computer(MonsterModel? computerPlayer) {
     _computer = computerPlayer;
     notifyListeners();
   }
 
-  Monster? get player => _player;
+  MonsterModel? get player => _player;
 
-  Monster? get computer => _computer;
+  MonsterModel? get computer => _computer;
   BattleResponse? get battleResponse => _battleResponse;
 
-  void generateCPUMonster(Monster playerMonster) {
-    List<Monster> computerList = List.from(_monsters);
+  void generateCPUMonster(MonsterModel playerMonster) {
+    List<MonsterModel> computerList = List.from(_monsters);
     computerList.remove(playerMonster);
     int monsterIndex = Random().nextInt(computerList.length - 1);
     _computer = computerList[monsterIndex];

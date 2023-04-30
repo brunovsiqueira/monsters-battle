@@ -13,9 +13,9 @@ class MonsterList extends StatefulWidget {
 }
 
 class _MonsterListState extends State<MonsterList> {
-  List<Monster>? _monsters;
+  List<MonsterModel>? _monsters;
 
-  Future<List<Monster>> _getMonsterList(BuildContext context) async {
+  Future<List<MonsterModel>> _getMonsterList(BuildContext context) async {
     return await Provider.of<MonsterService>(
       context,
       listen: false,
@@ -26,7 +26,7 @@ class _MonsterListState extends State<MonsterList> {
   void didChangeDependencies() async {
     super.didChangeDependencies();
     if (_monsters == null) {
-      List<Monster> tmpMonster = await _getMonsterList(context);
+      List<MonsterModel> tmpMonster = await _getMonsterList(context);
       setState(() {
         _monsters = tmpMonster;
       });

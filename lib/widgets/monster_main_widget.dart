@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/monster.dart';
 
 class MonsterMainCard extends StatelessWidget {
-  final Monster monster;
+  final MonsterModel monster;
 
   const MonsterMainCard({Key? key, required this.monster}) : super(key: key);
 

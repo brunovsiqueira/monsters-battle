@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../models/monster.dart';
 
 class MonsterBattleItemWidget extends StatefulWidget {
-  final PlayerType type;
+  final PlayerTypeEnum type;
 
   const MonsterBattleItemWidget({Key? key, required this.type})
       : super(key: key);
@@ -29,7 +29,7 @@ class _MonsterBattleItemWidgetState extends State<MonsterBattleItemWidget> {
     );
   }
 
-  Widget _currentMonsterWidget(Monster monster) {
+  Widget _currentMonsterWidget(MonsterModel monster) {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -90,12 +90,12 @@ class _MonsterBattleItemWidgetState extends State<MonsterBattleItemWidget> {
   Widget _buildCurrentWidget(MonsterService monsterService) {
     late Widget currentWidget;
     switch (widget.type) {
-      case PlayerType.player:
+      case PlayerTypeEnum.player:
         currentWidget = monsterService.player != null
             ? _currentMonsterWidget(monsterService.player!)
             : _defaultContent(context);
         break;
-      case PlayerType.computer:
+      case PlayerTypeEnum.computer:
         currentWidget = monsterService.computer != null
             ? _currentMonsterWidget(monsterService.computer!)
             : _defaultContent(context);

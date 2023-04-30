@@ -1,11 +1,11 @@
-enum PlayerType { player, computer }
+enum PlayerTypeEnum { player, computer }
 
-extension PlayerTypeExtension on PlayerType {
+extension PlayerTypeExtension on PlayerTypeEnum {
   String get playerName {
     switch (this) {
-      case PlayerType.player:
+      case PlayerTypeEnum.player:
         return "Player";
-      case PlayerType.computer:
+      case PlayerTypeEnum.computer:
         return "Computer";
       default:
         return "Select a player";
