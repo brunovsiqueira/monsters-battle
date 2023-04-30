@@ -1,15 +1,16 @@
-import 'package:monsters_battle/services/monster_service.dart';
+import 'package:monsters_battle/styling/spacing.dart';
 import 'package:monsters_battle/utils/player_type_enum.dart';
 import 'package:monsters_battle/widgets/monster_power_bar_chart_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../models/monster.dart';
 
 class MonsterBattleItemWidget extends StatefulWidget {
-  final PlayerTypeEnum type;
+  final PlayerTypeEnum playerType;
+  final MonsterModel? monster;
 
-  const MonsterBattleItemWidget({Key? key, required this.type})
+  const MonsterBattleItemWidget(
+      {Key? key, required this.playerType, required this.monster})
       : super(key: key);
 
   @override
@@ -18,104 +19,75 @@ class MonsterBattleItemWidget extends StatefulWidget {
 }
 
 class _MonsterBattleItemWidgetState extends State<MonsterBattleItemWidget> {
-  Widget _defaultContent(BuildContext context) {
-    return Center(
-      child: Text(
-        widget.type.playerName,
-        style: const TextStyle(
-          fontSize: 30,
-        ),
-      ),
-    );
-  }
-
-  Widget _currentMonsterWidget(MonsterModel monster) {
-    return Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(7.0),
-              child: Image.network(monster.imageUrl),
-            ),
-            const SizedBox(
-              height: 13,
-            ),
-            Text(
-              monster.name,
-              style: const TextStyle(fontSize: 22),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            const Divider(
-              height: 1,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MonsterPowerBarChartWidget(
-                    monsterAttributeName: "HP",
-                    monsterAttributeValue: monster.hp,
-                  ),
-                  MonsterPowerBarChartWidget(
-                    monsterAttributeName: "Attack",
-                    monsterAttributeValue: monster.attack,
-                  ),
-                  MonsterPowerBarChartWidget(
-                    monsterAttributeName: "Deffense",
-                    monsterAttributeValue: monster.defense,
-                  ),
-                  MonsterPowerBarChartWidget(
-                    monsterAttributeName: "Speed",
-                    monsterAttributeValue: monster.speed,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-          ],
-        ));
-  }
-
-  Widget _buildCurrentWidget(MonsterService monsterService) {
-    late Widget currentWidget;
-    switch (widget.type) {
-      case PlayerTypeEnum.player:
-        currentWidget = monsterService.player != null
-            ? _currentMonsterWidget(monsterService.player!)
-            : _defaultContent(context);
-        break;
-      case PlayerTypeEnum.computer:
-        currentWidget = monsterService.computer != null
-            ? _currentMonsterWidget(monsterService.computer!)
-            : _defaultContent(context);
-        break;
-      default:
-        currentWidget = _defaultContent(context);
-    }
-
-    return Card(elevation: 8, child: currentWidget);
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    MonsterService monsterService =
-        Provider.of<MonsterService>(context, listen: true);
+    MonsterModel? monster = widget.monster;
 
+    if (monster == null) {
+      return const Center(
+        child: Text(
+          "Monster not yet selected",
+          style: TextStyle(
+            fontSize: 30,
+          ),
+        ),
+      );
+    }
     return SizedBox(
       width: size.width * 0.70,
-      child: _buildCurrentWidget(monsterService),
+      child: Card(
+        elevation: 8,
+        child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                spacingInlineXS,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(7.0),
+                  child: Image.network(monster.imageUrl),
+                ),
+                spacingInlineS,
+                Text(
+                  monster.name,
+                  style: const TextStyle(fontSize: 22),
+                ),
+                spacingInlineXXS,
+                const Divider(
+                  height: 1,
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MonsterPowerBarChartWidget(
+                        monsterAttributeName: "HP",
+                        monsterAttributeValue: monster.hp,
+                      ),
+                      MonsterPowerBarChartWidget(
+                        monsterAttributeName: "Attack",
+                        monsterAttributeValue: monster.attack,
+                      ),
+                      MonsterPowerBarChartWidget(
+                        monsterAttributeName: "Deffense",
+                        monsterAttributeValue: monster.defense,
+                      ),
+                      MonsterPowerBarChartWidget(
+                        monsterAttributeName: "Speed",
+                        monsterAttributeValue: monster.speed,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+              ],
+            )),
+      ),
     );
   }
 }
