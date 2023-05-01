@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'view_models/monster_battle_view_model.dart';
 import 'pages/monsters_battle_home_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,10 +25,7 @@ class MyApp extends StatelessWidget {
           contentTextStyle: TextStyle(color: Colors.black),
         ),
       ),
-      home: ChangeNotifierProvider(
-        create: (context) => MonsterBattleViewModel(),
-        child: const MonstersBattleHomePage(),
-      ),
+      home: const MonstersBattleHomePage(),
     );
   }
 }

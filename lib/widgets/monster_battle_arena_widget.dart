@@ -1,17 +1,19 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:monsters_battle/providers/providers.dart';
 import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:monsters_battle/utils/player_type_enum.dart';
 import 'package:flutter/material.dart';
 
 import 'monster_battle_item_widget.dart';
-import 'package:provider/provider.dart';
 
-class MonsterBattleArenaWidget extends StatelessWidget {
+class MonsterBattleArenaWidget extends ConsumerWidget {
   const MonsterBattleArenaWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     MonsterBattleViewModel monsterService =
-        context.watch<MonsterBattleViewModel>();
+        ref.watch(monsterBattleViewModelProvider);
+
     Size size = MediaQuery.of(context).size;
     return SizedBox(
         height: size.height * 0.55,
