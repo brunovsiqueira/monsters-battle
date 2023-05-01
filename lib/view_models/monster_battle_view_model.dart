@@ -18,26 +18,6 @@ class MonsterBattleViewModel extends ChangeNotifier {
   UnmodifiableListView<MonsterModel> get monsters =>
       UnmodifiableListView(_monsters);
 
-  Future<List<MonsterModel>> getMonsters() async {
-    final response =
-        await http.get(Uri.parse('${dotenv.env["API_URL"]}/monsters'));
-    if (response.statusCode == 200) {
-      late Iterable it;
-      if (response.body is List<dynamic>) {
-        Map<String, dynamic> results = json.decode(response.body);
-        it = results['monsters'] as Iterable;
-      } else {
-        it = jsonDecode(response.body);
-      }
-      _monsters = List<MonsterModel>.from(
-          it.map((monster) => MonsterModel.fromJson(monster)));
-      notifyListeners();
-      return _monsters;
-    } else {
-      throw Exception('Failed to load monsters');
-    }
-  }
-
   Future<BattleResponse> startBattle() async {
     final response = await http.post(
         Uri.parse('${dotenv.env["API_URL"]}/battle'),
