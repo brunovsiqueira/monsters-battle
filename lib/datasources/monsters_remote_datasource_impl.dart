@@ -4,11 +4,11 @@ import 'package:monsters_battle/errors/base_exceptions.dart';
 import 'package:monsters_battle/models/monster.dart';
 import 'package:monsters_battle/services/api.dart';
 
-class MonsterRemoteDatasourceImpl implements MonsterRemoteDatasource {
+class MonstersRemoteDatasourceImpl implements MonstersRemoteDatasource {
   final API _api;
   final String _baseURL;
 
-  MonsterRemoteDatasourceImpl(this._api, this._baseURL);
+  MonstersRemoteDatasourceImpl(this._api, this._baseURL);
   @override
   Future<List<MonsterModel>> getMonsters() async {
     final url = '$_baseURL/monsters';
