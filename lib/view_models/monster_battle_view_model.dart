@@ -1,33 +1,27 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:dartz/dartz.dart';
+import 'package:monsters_battle/errors/base_failures.dart';
 import 'package:monsters_battle/models/battle_request_model.dart';
 import 'package:monsters_battle/models/battle_response_model.dart';
 import 'package:monsters_battle/models/monster.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:monsters_battle/services/monsters_service.dart';
 
 class MonsterBattleViewModel extends ChangeNotifier {
-  final List<MonsterModel> _monsters = [];
+  final MonstersService _monstersService;
+  late final List<MonsterModel> _monsters;
   MonsterModel? _player;
   MonsterModel? _computer;
 
   BattleResponseModel? _battleResponse;
 
-  UnmodifiableListView<MonsterModel> get monsters =>
-      UnmodifiableListView(_monsters);
+  MonsterBattleViewModel(this._monstersService);
 
-  Future<BattleResponseModel> startBattle() async {
-    final response = await http.post(
-        Uri.parse('${dotenv.env["API_URL"]}/battle'),
-        body: BattleRequestModel(_player!.id, _computer!.id).toJson());
-    if (response.statusCode == 200) {
-      var decodedResponse = jsonDecode(response.body);
-      return BattleResponseModel.fromJson(decodedResponse);
-    } else {
-      throw Exception('Failed to start battle');
-    }
+  Future<Either<Failure, BattleResponseModel>> startBattle(
+      BattleRequestModel battleRequestModel) async {
+    return await _monstersService.postMonstersBattle(battleRequestModel);
   }
 
   void selectMonster(MonsterModel monster) {
@@ -38,7 +32,7 @@ class MonsterBattleViewModel extends ChangeNotifier {
       _computer = null;
     } else {
       _player = monster;
-      generateCPUMonster(_player!);
+      _generateCPUMonster(_player!);
     }
     notifyListeners();
   }
@@ -58,7 +52,7 @@ class MonsterBattleViewModel extends ChangeNotifier {
   MonsterModel? get computer => _computer;
   BattleResponseModel? get battleResponse => _battleResponse;
 
-  void generateCPUMonster(MonsterModel playerMonster) {
+  void _generateCPUMonster(MonsterModel playerMonster) {
     List<MonsterModel> computerList = List.from(_monsters);
     computerList.remove(playerMonster);
     int monsterIndex = Random().nextInt(computerList.length - 1);

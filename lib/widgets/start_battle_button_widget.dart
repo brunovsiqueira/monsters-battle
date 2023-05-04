@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:monsters_battle/models/battle_response.dart';
+import 'package:monsters_battle/models/battle_response_model.dart';
 import 'package:monsters_battle/providers/providers.dart';
 import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:flutter/material.dart';
