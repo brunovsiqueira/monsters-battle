@@ -17,17 +17,32 @@ class MonsterBattleViewModel extends BaseViewModel {
   List<MonsterModel> monsters = [];
   Failure? failure;
 
-  MonsterModel? player;
-  MonsterModel? computer;
+  MonsterModel? _player;
+  MonsterModel? _computer;
 
   MonsterBattleViewModel(this._monstersService);
 
+  MonsterModel? get player => _player;
+  MonsterModel? get computer => _computer;
+
+  bool get isPlayerAndMonsterSelected => player != null && computer != null;
+
+  set player(MonsterModel? currentPlayer) {
+    _player = currentPlayer;
+    notify();
+  }
+
+  set computer(MonsterModel? computerPlayer) {
+    _computer = computerPlayer;
+    notify();
+  }
+
   Future<Either<Failure, BattleResponseModel>> startBattle() async {
-    if (player == null || computer == null) {
+    if (!isPlayerAndMonsterSelected) {
       return const Left(MonstersNotSelectedFailure());
     }
     return await _monstersService.postMonstersBattle(
-        BattleRequestModel(monster1Id: player!.id, monster2Id: computer!.id));
+        BattleRequestModel(monster1Id: _player!.id, monster2Id: _computer!.id));
   }
 
   Future<void> getMonsters() async {
@@ -53,16 +68,6 @@ class MonsterBattleViewModel extends BaseViewModel {
       _player = monster;
       _generateCPUMonster(_player!);
     }
-    notify();
-  }
-
-  set player(MonsterModel? currentPlayer) {
-    _player = currentPlayer;
-    notify();
-  }
-
-  set computer(MonsterModel? computerPlayer) {
-    _computer = computerPlayer;
     notify();
   }
 

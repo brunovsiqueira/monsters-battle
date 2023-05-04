@@ -37,7 +37,7 @@ class MonstersBattleHomePage extends StatelessWidget {
               spacingInlineD,
               Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: MonsterList(),
+                child: MonsterListWidget(),
               ),
               spacingInlineL,
               Padding(
