@@ -1,4 +1,5 @@
-import 'dart:convert';
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
@@ -6,7 +7,6 @@ import 'package:monsters_battle/errors/base_failures.dart';
 import 'package:monsters_battle/models/battle_request_model.dart';
 import 'package:monsters_battle/models/battle_response_model.dart';
 import 'package:monsters_battle/models/monster.dart';
-import 'package:flutter/material.dart';
 import 'package:monsters_battle/services/monsters_service.dart';
 import 'package:monsters_battle/view_models/base_view_model.dart';
 
@@ -32,8 +32,8 @@ class MonsterBattleViewModel extends BaseViewModel {
     var result = await _monstersService.getMonsters();
     result.fold((_failure) {
       failure = _failure;
-    }, (_monsters) {
-      monsters = _monsters;
+    }, (_monsterList) {
+      monsters = _monsterList;
     });
     return;
   }
