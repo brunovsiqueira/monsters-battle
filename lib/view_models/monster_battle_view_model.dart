@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:dartz/dartz.dart';
 import 'package:monsters_battle/enums/view_model_status_enum.dart';
 import 'package:monsters_battle/errors/base_failures.dart';
+import 'package:monsters_battle/errors/monsters_failures.dart';
 import 'package:monsters_battle/models/battle_request_model.dart';
 import 'package:monsters_battle/models/battle_response_model.dart';
 import 'package:monsters_battle/models/monster.dart';
@@ -16,16 +17,17 @@ class MonsterBattleViewModel extends BaseViewModel {
   List<MonsterModel> monsters = [];
   Failure? failure;
 
-  MonsterModel? _player;
-  MonsterModel? _computer;
-
-  BattleResponseModel? _battleResponse;
+  MonsterModel? player;
+  MonsterModel? computer;
 
   MonsterBattleViewModel(this._monstersService);
 
-  Future<Either<Failure, BattleResponseModel>> startBattle(
-      BattleRequestModel battleRequestModel) async {
-    return await _monstersService.postMonstersBattle(battleRequestModel);
+  Future<Either<Failure, BattleResponseModel>> startBattle() async {
+    if (player == null || computer == null) {
+      return const Left(MonstersNotSelectedFailure());
+    }
+    return await _monstersService.postMonstersBattle(
+        BattleRequestModel(monster1Id: player!.id, monster2Id: computer!.id));
   }
 
   Future<void> getMonsters() async {
@@ -63,11 +65,6 @@ class MonsterBattleViewModel extends BaseViewModel {
     _computer = computerPlayer;
     notify();
   }
-
-  MonsterModel? get player => _player;
-
-  MonsterModel? get computer => _computer;
-  BattleResponseModel? get battleResponse => _battleResponse;
 
   void _generateCPUMonster(MonsterModel playerMonster) {
     List<MonsterModel> computerList = List.from(monsters);

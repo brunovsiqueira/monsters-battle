@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:monsters_battle/models/battle_response_model.dart';
 import 'package:monsters_battle/providers/providers.dart';
 import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
     MonsterBattleViewModel monsterService =
         ref.watch(monsterBattleViewModelProvider);
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: SizedBox(
         width: size.width * 0.85,
         height: 56,
@@ -53,31 +52,33 @@ class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
               });
               return;
             }
-            if (monsterService.player == null) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("You must select a monster first!")));
 
-              return;
-            }
-            BattleResponseModel battleResponse =
-                await monsterService.startBattle();
-            if (battleResponse.tie) {
+            var result = await monsterService.startBattle();
+            result.fold((failure) {
+              showSnackBar(failure.message);
+            }, (battleResponse) {
+              if (battleResponse.tie) {
+                showSnackBar("It's a tie!");
+                setState(() {
+                  isGameFinished = true;
+                });
+
+                return;
+              }
+              showSnackBar(
+                  "${battleResponse.winner?.name} wins."); //TODO: indicate if it is player or computer
               setState(() {
-                buttonText = "Tie! Tap to restart.";
                 isGameFinished = true;
               });
-
-              return;
-            }
-            setState(() {
-              buttonText =
-                  "${battleResponse.winner?.name} wins. Tap to restart";
-              isGameFinished = true;
             });
           },
           child: Text(buttonText),
         ),
       ),
     );
+  }
+
+  void showSnackBar(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }

@@ -33,3 +33,8 @@ class PostMonstersBattleInvalidIdFailure extends ServerFailure {
           stackTrace: stackTrace,
         );
 }
+
+class MonstersNotSelectedFailure extends Failure {
+  static const String defaultMessage = "You must select a monster first.";
+  const MonstersNotSelectedFailure() : super(message: defaultMessage);
+}
