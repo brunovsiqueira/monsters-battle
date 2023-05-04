@@ -3,14 +3,16 @@ import 'package:monsters_battle/providers/providers.dart';
 import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:flutter/material.dart';
 
-class StartBattleButton extends ConsumerStatefulWidget {
-  const StartBattleButton({Key? key}) : super(key: key);
+class StartBattleButtonWidget extends ConsumerStatefulWidget {
+  const StartBattleButtonWidget({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<StartBattleButton> createState() => _StartBattleButtonState();
+  ConsumerState<StartBattleButtonWidget> createState() =>
+      _StartBattleButtonWidgetState();
 }
 
-class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
+class _StartBattleButtonWidgetState
+    extends ConsumerState<StartBattleButtonWidget> {
   final ButtonStyle _enableButtonStyle = ButtonStyle(
     backgroundColor: MaterialStateProperty.all<Color>(
       const Color(0xFF10782E),
@@ -24,13 +26,12 @@ class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
   );
 
-  String buttonText = "Start Battle";
   bool isGameFinished = false;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    MonsterBattleViewModel monsterService =
+    MonsterBattleViewModel monsterBattleViewModel =
         ref.watch(monsterBattleViewModelProvider);
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -38,22 +39,22 @@ class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
         width: size.width * 0.85,
         height: 56,
         child: ElevatedButton(
-          style:
-              monsterService.player != null && monsterService.computer != null
-                  ? _enableButtonStyle
-                  : _disabledButtonStyle,
+          style: monsterBattleViewModel.player != null &&
+                  monsterBattleViewModel.computer != null
+              ? _enableButtonStyle
+              : _disabledButtonStyle,
           onPressed: () async {
             if (isGameFinished) {
+              //TODO: create a different button to restart
               setState(() {
-                buttonText = "Start battle";
-                monsterService.computer = null;
-                monsterService.player = null;
+                monsterBattleViewModel.computer = null;
+                monsterBattleViewModel.player = null;
                 isGameFinished = false;
               });
               return;
             }
 
-            var result = await monsterService.startBattle();
+            var result = await monsterBattleViewModel.startBattle();
             result.fold((failure) {
               showSnackBar(failure.message);
             }, (battleResponse) {
@@ -72,7 +73,7 @@ class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
               });
             });
           },
-          child: Text(buttonText),
+          child: const Text("Start battle"),
         ),
       ),
     );

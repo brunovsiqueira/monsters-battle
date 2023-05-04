@@ -49,7 +49,7 @@ class MonstersBattleHomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const StartBattleButton(),
+      bottomNavigationBar: const StartBattleButtonWidget(),
     );
   }
 }
