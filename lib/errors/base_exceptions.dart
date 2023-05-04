@@ -4,12 +4,11 @@ import 'package:logging/logging.dart';
 
 class ServerException extends Equatable implements Exception {
   final DioError dioError;
-  final String? customMessage;
-  final Level? customLevel;
+  final String? message;
+  final Level? logLevel;
 
-  const ServerException(
-      {required this.dioError, this.customMessage, this.customLevel});
+  const ServerException({required this.dioError, this.message, this.logLevel});
 
   @override
-  List<Object?> get props => [dioError, customMessage, customLevel];
+  List<Object?> get props => [dioError, message, logLevel];
 }
