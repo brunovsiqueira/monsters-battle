@@ -13,18 +13,18 @@ class MonsterBattleViewModel extends ChangeNotifier {
   MonsterModel? _player;
   MonsterModel? _computer;
 
-  BattleResponse? _battleResponse;
+  BattleResponseModel? _battleResponse;
 
   UnmodifiableListView<MonsterModel> get monsters =>
       UnmodifiableListView(_monsters);
 
-  Future<BattleResponse> startBattle() async {
+  Future<BattleResponseModel> startBattle() async {
     final response = await http.post(
         Uri.parse('${dotenv.env["API_URL"]}/battle'),
         body: BattleRequest(_player!.id, _computer!.id).toJson());
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
-      return BattleResponse.fromJson(decodedResponse);
+      return BattleResponseModel.fromJson(decodedResponse);
     } else {
       throw Exception('Failed to start battle');
     }
@@ -56,7 +56,7 @@ class MonsterBattleViewModel extends ChangeNotifier {
   MonsterModel? get player => _player;
 
   MonsterModel? get computer => _computer;
-  BattleResponse? get battleResponse => _battleResponse;
+  BattleResponseModel? get battleResponse => _battleResponse;
 
   void generateCPUMonster(MonsterModel playerMonster) {
     List<MonsterModel> computerList = List.from(_monsters);

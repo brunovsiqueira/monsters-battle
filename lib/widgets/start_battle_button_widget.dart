@@ -59,7 +59,8 @@ class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
 
               return;
             }
-            BattleResponse battleResponse = await monsterService.startBattle();
+            BattleResponseModel battleResponse =
+                await monsterService.startBattle();
             if (battleResponse.tie) {
               setState(() {
                 buttonText = "Tie! Tap to restart.";
