@@ -12,20 +12,20 @@ final monsterBattleViewModelProvider =
 });
 
 final monsterListProvider = FutureProvider<List<MonsterModel>>((ref) async {
-  List<MonsterModel> _monsters = [];
+  List<MonsterModel> monsters = [];
   final response = await Dio().get('${dotenv.env["API_URL"]}/monsters');
   if (response.statusCode == 200) {
     late Iterable it;
     if (response is List<dynamic>) {
-      Map<String, dynamic> results = json.decode(response.body);
+      Map<String, dynamic> results = json.decode(response.data);
       it = results['monsters'] as Iterable;
     } else {
-      it = jsonDecode(response);
+      it = jsonDecode(response.data);
     }
-    _monsters = List<MonsterModel>.from(
+    monsters = List<MonsterModel>.from(
         it.map((monster) => MonsterModel.fromJson(monster)));
 
-    return _monsters;
+    return monsters;
   } else {
     throw Exception('Failed to load monsters');
   }

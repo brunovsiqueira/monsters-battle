@@ -1,17 +1,17 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:monsters_battle/models/battle_response.dart';
+import 'package:monsters_battle/providers/providers.dart';
 import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-
-class StartBattleButton extends StatefulWidget {
+class StartBattleButton extends ConsumerStatefulWidget {
   const StartBattleButton({Key? key}) : super(key: key);
 
   @override
-  State<StartBattleButton> createState() => _StartBattleButtonState();
+  ConsumerState<StartBattleButton> createState() => _StartBattleButtonState();
 }
 
-class _StartBattleButtonState extends State<StartBattleButton> {
+class _StartBattleButtonState extends ConsumerState<StartBattleButton> {
   final ButtonStyle _enableButtonStyle = ButtonStyle(
     backgroundColor: MaterialStateProperty.all<Color>(
       const Color(0xFF10782E),
@@ -32,7 +32,7 @@ class _StartBattleButtonState extends State<StartBattleButton> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     MonsterBattleViewModel monsterService =
-        Provider.of<MonsterBattleViewModel>(context, listen: true);
+        ref.watch(monsterBattleViewModelProvider);
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
       child: SizedBox(

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MonsterBattleViewModel extends ChangeNotifier {
-  List<MonsterModel> _monsters = [];
+  final List<MonsterModel> _monsters = [];
   MonsterModel? _player;
   MonsterModel? _computer;
 
