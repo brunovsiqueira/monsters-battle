@@ -1,36 +1,23 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:monsters_battle/view_models/monster_battle_view_model.dart';
 import 'package:monsters_battle/widgets/monster_header_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../models/monster.dart';
 
-class MonsterList extends StatefulWidget {
-  const MonsterList({Key? key}) : super(key: key);
+class MonsterListWidget extends ConsumerStatefulWidget {
+  const MonsterListWidget({Key? key}) : super(key: key);
 
   @override
-  State<MonsterList> createState() => _MonsterListState();
+  ConsumerState<MonsterListWidget> createState() => _MonsterListWidgetState();
 }
 
-class _MonsterListState extends State<MonsterList> {
+class _MonsterListWidgetState extends State<MonsterListWidget> {
   List<MonsterModel>? _monsters;
 
-  Future<List<MonsterModel>> _getMonsterList(BuildContext context) async {
-    return await Provider.of<MonsterBattleViewModel>(
-      context,
-      listen: false,
-    ).getMonsters();
-  }
-
   @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
-    if (_monsters == null) {
-      List<MonsterModel> tmpMonster = await _getMonsterList(context);
-      setState(() {
-        _monsters = tmpMonster;
-      });
-    }
+  void initState() {
+    super.initState();
   }
 
   @override

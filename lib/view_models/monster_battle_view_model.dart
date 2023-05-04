@@ -8,10 +8,13 @@ import 'package:monsters_battle/models/battle_response_model.dart';
 import 'package:monsters_battle/models/monster.dart';
 import 'package:flutter/material.dart';
 import 'package:monsters_battle/services/monsters_service.dart';
+import 'package:monsters_battle/view_models/base_view_model.dart';
 
-class MonsterBattleViewModel extends ChangeNotifier {
+class MonsterBattleViewModel extends BaseViewModel {
   final MonstersService _monstersService;
-  late final List<MonsterModel> _monsters;
+  List<MonsterModel> monsters = [];
+  Failure? failure;
+
   MonsterModel? _player;
   MonsterModel? _computer;
 
@@ -24,6 +27,17 @@ class MonsterBattleViewModel extends ChangeNotifier {
     return await _monstersService.postMonstersBattle(battleRequestModel);
   }
 
+  Future getMonsters() async {
+    //TODO: add view model status
+    var result = await _monstersService.getMonsters();
+    result.fold((_failure) {
+      failure = _failure;
+    }, (_monsters) {
+      monsters = _monsters;
+    });
+    return;
+  }
+
   void selectMonster(MonsterModel monster) {
     if (_player != null && _player?.id == monster.id) {
       //If the same monster is selected so
@@ -34,17 +48,17 @@ class MonsterBattleViewModel extends ChangeNotifier {
       _player = monster;
       _generateCPUMonster(_player!);
     }
-    notifyListeners();
+    notify();
   }
 
   set player(MonsterModel? currentPlayer) {
     _player = currentPlayer;
-    notifyListeners();
+    notify();
   }
 
   set computer(MonsterModel? computerPlayer) {
     _computer = computerPlayer;
-    notifyListeners();
+    notify();
   }
 
   MonsterModel? get player => _player;

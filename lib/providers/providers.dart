@@ -21,7 +21,3 @@ final monsterBattleViewModelProvider =
     ChangeNotifierProvider<MonsterBattleViewModel>((ref) {
   return MonsterBattleViewModel(ref.read(monsterServiceProvider));
 });
-
-final monsterListProvider = FutureProvider<List<MonsterModel>>((ref) async {
-  return ref.read(monsterServiceProvider).getMonsters();
-});
