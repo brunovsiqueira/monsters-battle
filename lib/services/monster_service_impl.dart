@@ -1,5 +1,6 @@
 import 'package:monsters_battle/datasources/monsters_remote_datasource.dart';
 import 'package:monsters_battle/errors/base_exceptions.dart';
+import 'package:monsters_battle/errors/monsters_exceptions.dart';
 import 'package:monsters_battle/errors/monsters_failures.dart';
 import 'package:monsters_battle/models/battle_request_model.dart';
 import 'package:monsters_battle/models/battle_response_model.dart';
@@ -29,9 +30,21 @@ class MonstersServiceImpl implements MonstersService {
   }
 
   @override
-  Future<Either<Failure, BattleResponseModel>> postBattle(
-      BattleRequestModel battleRequestModel) {
-    // TODO: implement postBattle
-    throw UnimplementedError();
+  Future<Either<Failure, BattleResponseModel>> postMonstersBattle(
+      BattleRequestModel battleRequestModel) async {
+    Failure? failure;
+    try {
+      BattleResponseModel battleResponse = await _monstersRemoteDatasource
+          .postMonstersBattle(battleRequestModel);
+      return Right(battleResponse);
+    } on PostMonstersBattleInvalidIdException catch (e, stackTrace) {
+      failure = PostMonstersBattleInvalidIdFailure(
+          exception: e, stackTrace: stackTrace);
+    } on ServerException catch (e, stackTrace) {
+      failure = PostMonstersBattleFailure(exception: e, stackTrace: stackTrace);
+    } catch (e, stackTrace) {
+      failure = UnknownFailure(exception: e, stackTrace: stackTrace);
+    }
+    return Left(failure);
   }
 }

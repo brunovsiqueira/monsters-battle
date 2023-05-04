@@ -7,6 +7,6 @@ import 'package:monsters_battle/models/monster.dart';
 
 abstract class MonstersService {
   Future<Either<Failure, List<MonsterModel>>> getMonsters();
-  Future<Either<Failure, BattleResponseModel>> postBattle(
+  Future<Either<Failure, BattleResponseModel>> postMonstersBattle(
       BattleRequestModel battleRequestModel);
 }

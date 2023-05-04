@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:monsters_battle/datasources/monsters_remote_datasource.dart';
 import 'package:monsters_battle/errors/base_exceptions.dart';
+import 'package:monsters_battle/errors/monsters_exceptions.dart';
+import 'package:monsters_battle/models/battle_response_model.dart';
+import 'package:monsters_battle/models/battle_request_model.dart';
 import 'package:monsters_battle/models/monster.dart';
 import 'package:monsters_battle/services/api.dart';
 
@@ -19,6 +22,21 @@ class MonstersRemoteDatasourceImpl implements MonstersRemoteDatasource {
           .toList();
       return monsters;
     } on DioError catch (e) {
+      throw ServerException(dioError: e);
+    }
+  }
+
+  @override
+  Future<BattleResponseModel> postMonstersBattle(
+      BattleRequestModel battleRequestModel) async {
+    final url = '$_baseURL/battle';
+    try {
+      final response = await _api.httpPost(battleRequestModel, url);
+      return BattleResponseModel.fromJson(response.data);
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 400) {
+        throw PostMonstersBattleInvalidIdException(dioError: e);
+      }
       throw ServerException(dioError: e);
     }
   }
