@@ -53,7 +53,7 @@ class MonsterBattleViewModel extends BaseViewModel {
       status = ViewModelStatusEnum.error;
     }, (_monsterList) {
       monsters = _monsterList;
-      status = ViewModelStatusEnum.error;
+      status = ViewModelStatusEnum.loaded;
     });
     notify();
   }

@@ -39,8 +39,7 @@ class _StartBattleButtonWidgetState
         width: size.width * 0.85,
         height: 56,
         child: ElevatedButton(
-          style: monsterBattleViewModel.player != null &&
-                  monsterBattleViewModel.computer != null
+          style: monsterBattleViewModel.isPlayerAndMonsterSelected
               ? _enableButtonStyle
               : _disabledButtonStyle,
           onPressed: () async {

@@ -41,12 +41,15 @@ class _MonsterListWidgetState extends ConsumerState<MonsterListWidget> {
     List<MonsterModel> monsters = monsterBattleViewModel.monsters;
 
     return monsters.isNotEmpty
-        ? ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: monsters.length,
-            itemBuilder: (context, index) =>
-                MonsterHeaderCard(monster: monsters[index]),
+        ? SizedBox(
+            height: 150,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: monsters.length,
+              itemBuilder: (context, index) =>
+                  MonsterHeaderCard(monster: monsters[index]),
+            ),
           )
         : const NoMonsterWidget();
   }
@@ -57,19 +60,22 @@ class LoadingMonstersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (_, __) {
-          return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.black,
-              child: const SizedBox(
-                height: 140,
-                width: 150,
-              ));
-        });
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: 5,
+          itemBuilder: (_, __) {
+            return Shimmer.fromColors(
+                baseColor: Colors.grey,
+                highlightColor: Colors.black,
+                child: const SizedBox(
+                  height: 140,
+                  width: 150,
+                ));
+          }),
+    );
   }
 }
 
