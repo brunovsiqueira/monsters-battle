@@ -16,7 +16,7 @@ class MonsterHeaderCard extends ConsumerWidget {
 
     return SizedBox(
       width: 150,
-      height: size.height,
+      height: 140,
       child: GestureDetector(
         onTap: () {
           ref.read(monsterBattleViewModelProvider).selectMonster(monster);
@@ -46,7 +46,7 @@ class MonsterHeaderCard extends ConsumerWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 3),
-                    child: Container(
+                    child: SizedBox(
                       width: size.width,
                       child: Text(monster.name),
                     ),

@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
+import 'package:monsters_battle/enums/view_model_status_enum.dart';
 import 'package:monsters_battle/errors/base_failures.dart';
 import 'package:monsters_battle/models/battle_request_model.dart';
 import 'package:monsters_battle/models/battle_response_model.dart';
@@ -27,15 +28,17 @@ class MonsterBattleViewModel extends BaseViewModel {
     return await _monstersService.postMonstersBattle(battleRequestModel);
   }
 
-  Future getMonsters() async {
-    //TODO: add view model status
+  Future<void> getMonsters() async {
+    status = ViewModelStatusEnum.loading;
     var result = await _monstersService.getMonsters();
     result.fold((_failure) {
       failure = _failure;
+      status = ViewModelStatusEnum.error;
     }, (_monsterList) {
       monsters = _monsterList;
+      status = ViewModelStatusEnum.error;
     });
-    return;
+    notify();
   }
 
   void selectMonster(MonsterModel monster) {
@@ -67,7 +70,7 @@ class MonsterBattleViewModel extends BaseViewModel {
   BattleResponseModel? get battleResponse => _battleResponse;
 
   void _generateCPUMonster(MonsterModel playerMonster) {
-    List<MonsterModel> computerList = List.from(_monsters);
+    List<MonsterModel> computerList = List.from(monsters);
     computerList.remove(playerMonster);
     int monsterIndex = Random().nextInt(computerList.length - 1);
     _computer = computerList[monsterIndex];
