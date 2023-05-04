@@ -2,8 +2,8 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:monsters_battle/models/battle_request.dart';
-import 'package:monsters_battle/models/battle_response.dart';
+import 'package:monsters_battle/models/battle_request_model.dart';
+import 'package:monsters_battle/models/battle_response_model.dart';
 import 'package:monsters_battle/models/monster.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -21,7 +21,7 @@ class MonsterBattleViewModel extends ChangeNotifier {
   Future<BattleResponseModel> startBattle() async {
     final response = await http.post(
         Uri.parse('${dotenv.env["API_URL"]}/battle'),
-        body: BattleRequest(_player!.id, _computer!.id).toJson());
+        body: BattleRequestModel(_player!.id, _computer!.id).toJson());
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
       return BattleResponseModel.fromJson(decodedResponse);
