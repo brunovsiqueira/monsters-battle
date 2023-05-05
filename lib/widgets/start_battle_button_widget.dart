@@ -26,8 +26,6 @@ class _StartBattleButtonWidgetState
     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
   );
 
-  bool isGameFinished = false;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -43,15 +41,15 @@ class _StartBattleButtonWidgetState
               ? _enableButtonStyle
               : _disabledButtonStyle,
           onPressed: () async {
-            if (isGameFinished) {
-              //TODO: create a different button to restart
-              setState(() {
-                monsterBattleViewModel.computer = null;
-                monsterBattleViewModel.player = null;
-                isGameFinished = false;
-              });
-              return;
-            }
+            // if (isGameFinished) {
+            //   //TODO: create a different button to restart
+            //   setState(() {
+            //     monsterBattleViewModel.computer = null;
+            //     monsterBattleViewModel.player = null;
+            //     isGameFinished = false;
+            //   });
+            //   return;
+            // }
 
             var result = await monsterBattleViewModel.startBattle();
             result.fold((failure) {
@@ -59,17 +57,17 @@ class _StartBattleButtonWidgetState
             }, (battleResponse) {
               if (battleResponse.tie) {
                 showSnackBar("It's a tie!");
-                setState(() {
-                  isGameFinished = true;
-                });
+                // setState(() {
+                //   isGameFinished = true;
+                // });
 
                 return;
               }
               showSnackBar(
                   "${battleResponse.winner?.name} wins."); //TODO: indicate if it is player or computer
-              setState(() {
-                isGameFinished = true;
-              });
+              // setState(() {
+              //   isGameFinished = true;
+              // });
             });
           },
           child: const Text("Start battle"),

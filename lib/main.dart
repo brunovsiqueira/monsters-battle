@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF10782E),
         textTheme: GoogleFonts.robotoTextTheme(),
         snackBarTheme: const SnackBarThemeData(
-          contentTextStyle: TextStyle(color: Colors.black),
+          contentTextStyle: TextStyle(color: Colors.white),
         ),
       ),
       home: const MonstersBattleHomePage(),
