@@ -1,4 +1,6 @@
-class MonsterModel {
+import 'package:equatable/equatable.dart';
+
+class MonsterModel extends Equatable {
   final String name;
   final String imageUrl;
   final int attack;
@@ -18,4 +20,7 @@ class MonsterModel {
         defense = json["defense"],
         hp = json["hp"],
         speed = json["speed"];
+
+  @override
+  List<Object?> get props => [name, imageUrl, attack, defense, hp, speed, id];
 }
